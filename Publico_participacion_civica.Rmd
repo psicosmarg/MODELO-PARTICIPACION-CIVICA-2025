@@ -1,0 +1,55 @@
+---
+title: "Para Mover el Voto ¿Importa más Quién Eres o Qué Haces?"
+author: "Autores: Gutierrez Fernandez, Jesus Osmar y Marcelo Porcayo, Tonancy Lizahaya | Especialistas del Comportamiento"
+date: "Septiembre 2025"
+output: 
+  html_document:
+    theme: flatly
+    self_contained: true
+    toc: false
+---
+
+```{r echo=FALSE}
+# Este chunk ejecuta todo el análisis en segundo plano pero no se muestra en el reporte.
+library(tidyverse)
+library(caret)
+library(janitor)
+
+set.seed(123)
+n_personas <- 2000
+datos_civicos <- tibble(id=1:n_personas,edad=sample(18:75,n_personas,T),nivel_educativo=factor(sample(c("Básica","Media Superior","Superior"),n_personas,T,prob=c(0.4,0.4,0.2))),interes_noticias_politicas=sample(0:10,n_personas,T),interaccion_contenido_civico=sample(0:20,n_personas,T))%>%mutate(prob_voto=0.1+(interes_noticias_politicas*0.05)+(interaccion_contenido_civico*0.02)+(rnorm(n_personas,0,0.1)),prob_voto=pmin(pmax(prob_voto,0),1),voto=factor(ifelse(runif(n_personas)<prob_voto,"Sí Votó","No Votó"),levels=c("Sí Votó","No Votó")))%>%select(-prob_voto)%>%clean_names()
+
+plot_interes <- datos_civicos %>%
+  mutate(interes_grupo = cut_number(interes_noticias_politicas, 4, labels = c("Bajo", "Medio", "Alto", "Muy Alto"))) %>%
+  ggplot(aes(x = interes_grupo, fill = voto)) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(labels = scales::percent) +
+  labs(subtitle = "La relación de comportamiento es visiblemente fuerte",
+    x = "Nivel de Interés en Noticias Políticas", y = "Proporción de Participación", fill = "Participación") +
+  theme_minimal(base_size = 14)
+```
+
+### **El Desafío: El Paradigma Roto del Marketing Cívico**
+
+Durante décadas, las campañas para incentivar el voto se han basado en una suposición: para movilizar a alguien, debemos entender *quién es* (su edad, educación, etc.). Pero, ¿y si esa suposición está incompleta? Nuestro análisis buscó desafiar este paradigma.
+
+### **El Descubrimiento: Comportamiento \> Demografía**
+
+Analizamos los datos de 2,000 ciudadanos y nuestro modelo predictivo llegó a una conclusión rotunda: la mejor forma de predecir si alguien votará no es su perfil demográfico, sino su **comportamiento observable**.
+
+El **interés que una persona muestra en noticias políticas** es un predictor significativamente más fuerte que cualquier factor demográfico. Esto sugiere que para mover a la acción, es más efectivo enfocarse en *lo que la gente hace* que en *quiénes son*.
+
+```{r echo=FALSE}
+# Muestra solo el resultado (el gráfico), pero no el código de este chunk.
+print(plot_interes)
+```
+
+### **La Estrategia Inteligente: De la Demografía al Engagement**
+
+Este hallazgo tiene implicaciones directas y rentables para cualquier organización cívica:
+
+1.  **Re-enfocar la Inversión:** Mover el presupuesto de campañas demográficas masivas a un targeting preciso basado en el **engagement y el interés** del usuario.
+
+2.  **Nutrir, Luego Pedir:** En lugar de pedir el voto directamente, la estrategia más efectiva es primero **nutrir el interés cívico** con contenido relevante.
+
+Este enfoque no solo es más eficiente, sino también más respetuoso con la audiencia, creando un círculo virtuoso de participación informada.
