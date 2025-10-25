@@ -34,3 +34,7 @@ El análisis demuestra que el targeting demográfico es una estrategia ineficien
 
 1.  **Re-enfocar la Inversión:** Mover el presupuesto de campañas masivas a un targeting preciso basado en el **engagement y el interés** del usuario.
 2.  **Nutrir, Luego Pedir:** Implementar campañas de contenido para incrementar el interés cívico en audiencias "frías" antes de solicitarles que voten, creando así un público más receptivo.
+
+## 7. Ver el Reporte  Completo
+
+**[Visualizar el Reporte Completo aquí](https://psicosmarg.github.io/MODELO-PARTICIPACION-CIVICA-2025/)**
